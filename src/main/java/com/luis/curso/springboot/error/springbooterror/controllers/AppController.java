@@ -1,5 +1,6 @@
 package com.luis.curso.springboot.error.springbooterror.controllers;
 
+import com.luis.curso.springboot.error.springbooterror.exceptions.UserNotFoundException;
 import com.luis.curso.springboot.error.springbooterror.models.domains.User;
 import com.luis.curso.springboot.error.springbooterror.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +26,9 @@ public class AppController {
 
     @GetMapping("/show/{id}")
     public User show(@PathVariable(name = "id") Long id) {
-        return service.findById(id);
+        User user  = service.findById(id).orElseThrow(()->new UserNotFoundException("Error el usuairo no existe"));
+
+        return user;
     }
 
 }

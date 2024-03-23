@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.luis.curso.springboot.error.springbooterror.exceptions.UserNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotWritableException;
@@ -39,7 +40,9 @@ public class HandlerExceptionController {
         return error;
     }
 
-    @ExceptionHandler({NullPointerException.class, HttpMessageNotWritableException.class})
+    @ExceptionHandler({NullPointerException.class,
+            HttpMessageNotWritableException.class,
+            UserNotFoundException.class})
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     public Map<String, Object> userNotFoundException(Exception ex){
         Map<String, Object> error = new HashMap<>();
